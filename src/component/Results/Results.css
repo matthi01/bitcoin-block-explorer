@@ -1,0 +1,11 @@
+.Results {
+    /* background-color: cyan; */
+    margin: 20px 50px;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.Results_text {
+    font-weight: 500;
+    font-size: 1.2em;
+    padding: 10px;
+}
