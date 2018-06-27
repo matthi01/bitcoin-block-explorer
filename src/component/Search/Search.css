@@ -11,3 +11,13 @@
     display: flex;
     justify-content: space-between;
 }
+
+@media only screen and (max-width: 500px) {
+    .Search_text {
+        display: none;
+    }
+
+    .Search_container {
+        justify-content: center;
+    }
+}

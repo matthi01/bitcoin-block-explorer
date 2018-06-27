@@ -14,3 +14,31 @@
 .Header_logo {
     margin-right: 50px;
 }
+
+.Header_logo img {
+    width: 100px;
+}
+
+@media only screen and (max-width: 630px) {
+    .Header {
+        flex-direction: column;
+        align-items: center;
+        height: 200px;
+    }
+
+    .Header_logo {
+        margin-right: 0;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .Header {
+        font-size: 1.2em;
+        letter-spacing: 2px;
+        height: 150px;
+    }
+
+    .Header_logo img {
+        width: 60px;
+    }
+}

@@ -47,6 +47,7 @@ class Search extends Component {
                     <div className="Search_text">{this.props.headerText}</div>
                     <form onSubmit={this.onSearchHandler} className="Search">
                         <Input
+                            className="Search_input"
                             size="mini"
                             icon="search"
                             placeholder="Search Block Height..."
