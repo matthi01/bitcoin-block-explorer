@@ -1,0 +1,12 @@
+.Footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, #afc0db, #062f70);
+    color: white;
+    height: 50px;
+    padding: 10px;
+    font-size: 0.8em;
+}
