@@ -1,24 +1,43 @@
 import React, { Component } from "react";
+import moment from "moment";
 import "./Transactions.css";
 import { Table } from "semantic-ui-react";
 import axios from "../../axios-blocks/axios-blocks";
 
 class Transactions extends Component {
+    state = {
+        transactionData: null
+    };
+
     fetchTransactions = blockHeight => {
-        const response = axios.get(`/${blockHeight}/tx`).then(response => {
-            response.data.data.list.map(txn => {
-                <Table.Row>
-                    <Table.Cell>txn.hash</Table.Cell>
-                    <Table.Cell>txn.fee</Table.Cell>
-                    <Table.Cell>txn.created_at</Table.Cell>
-                    <Table.Cell>txn.outputs_value</Table.Cell>
-                </Table.Row>;
+        axios.get(`/${blockHeight}/tx`).then(response => {
+            // response.data.data.list.forEach(el => console.log(el.is_coinbase));
+            let transactionData = response.data.data.list.map(txn => {
+                return (
+                    <Table.Row key={txn.hash}>
+                        <Table.Cell>{txn.hash}</Table.Cell>
+                        <Table.Cell>
+                            {txn.is_coinbase ? "Yes" : "No"}
+                        </Table.Cell>
+                        <Table.Cell>{txn.fee * 0.00000001}</Table.Cell>
+                        <Table.Cell>
+                            {moment
+                                .unix(txn.created_at)
+                                .format("DD/MM/YYYY hh:mm a")}
+                        </Table.Cell>
+                        <Table.Cell>
+                            {txn.outputs_value * 0.00000001}
+                        </Table.Cell>
+                    </Table.Row>
+                );
             });
+
+            this.setState({ transactionData: transactionData });
         });
     };
 
     render() {
-        let transactionsArray = this.fetchTransactions(this.props.blockHeight);
+        this.fetchTransactions(this.props.blockHeight);
 
         return (
             <div className="Transactions">
@@ -28,64 +47,14 @@ class Transactions extends Component {
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Hash</Table.HeaderCell>
-                            <Table.HeaderCell>Fee</Table.HeaderCell>
+                            <Table.HeaderCell>Coinbase Txn</Table.HeaderCell>
+                            <Table.HeaderCell>Fee (BTC)</Table.HeaderCell>
                             <Table.HeaderCell>Created</Table.HeaderCell>
-                            <Table.HeaderCell>Value</Table.HeaderCell>
+                            <Table.HeaderCell>Value (BTC)</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
-                    <Table.Body>
-                        {transactionsArray}
-
-                        <Table.Row>
-                            <Table.Cell>John Lilki</Table.Cell>
-                            <Table.Cell>September 14, 2013</Table.Cell>
-                            <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-                            <Table.Cell>No</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jamie Harington</Table.Cell>
-                            <Table.Cell>January 11, 2014</Table.Cell>
-                            <Table.Cell>jamieharingonton@yahoo.com</Table.Cell>
-                            <Table.Cell>Yes</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jill Lewis</Table.Cell>
-                            <Table.Cell>May 11, 2014</Table.Cell>
-                            <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-                            <Table.Cell>Yes</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>John Lilki</Table.Cell>
-                            <Table.Cell>September 14, 2013</Table.Cell>
-                            <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-                            <Table.Cell>No</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>John Lilki</Table.Cell>
-                            <Table.Cell>September 14, 2013</Table.Cell>
-                            <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-                            <Table.Cell>No</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jamie Harington</Table.Cell>
-                            <Table.Cell>January 11, 2014</Table.Cell>
-                            <Table.Cell>jamieharingonton@yahoo.com</Table.Cell>
-                            <Table.Cell>Yes</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Jill Lewis</Table.Cell>
-                            <Table.Cell>May 11, 2014</Table.Cell>
-                            <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-                            <Table.Cell>Yes</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>John Lilki</Table.Cell>
-                            <Table.Cell>September 14, 2013</Table.Cell>
-                            <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-                            <Table.Cell>No</Table.Cell>
-                        </Table.Row>
-                    </Table.Body>
+                    <Table.Body>{this.state.transactionData}</Table.Body>
                 </Table>
             </div>
         );

@@ -8,7 +8,7 @@ class Results extends Component {
         tableRowActive: false
     };
 
-    onTableRowClickHandler = () => {
+    onTableRowatoggle = () => {
         this.setState(prevState => {
             return { tableRowActive: !prevState.tableRowActive };
         });
@@ -21,7 +21,7 @@ class Results extends Component {
                 <Table.Row
                     active={this.state.tableRowActive}
                     key={this.props.results.height}
-                    onClick={this.onTableRowClickHandler}
+                    onClick={this.onTableRowatoggle}
                 >
                     <Table.Cell>{this.props.results.height}</Table.Cell>
                     <Table.Cell>{this.props.results.tx_count}</Table.Cell>

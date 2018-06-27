@@ -21,7 +21,6 @@ class Search extends Component {
 
     onSearchHandler = event => {
         event.preventDefault();
-        console.log("search clicked: " + this.state.searchValue);
         this.setState({ searchClicked: true });
 
         axios.get(`/${this.state.searchValue}`).then(response => {
