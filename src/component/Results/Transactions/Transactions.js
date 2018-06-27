@@ -13,7 +13,6 @@ class Transactions extends Component {
         axios
             .get(`/${blockHeight}/tx`)
             .then(response => {
-                // response.data.data.list.forEach(el => console.log(el.is_coinbase));
                 let transactionData = response.data.data.list.map(txn => {
                     return (
                         <Table.Row key={txn.hash}>

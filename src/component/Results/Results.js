@@ -9,6 +9,7 @@ class Results extends Component {
         tableRowActive: false
     };
 
+    // once a user starts typing a new block height, the current block should be unselected, hiding the transactions list
     componentWillReceiveProps(newProps) {
         this.setState({ tableRowActive: !newProps.resetTransactions });
     }

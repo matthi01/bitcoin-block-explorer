@@ -14,11 +14,11 @@ class Search extends Component {
 
     componentWillMount() {
         axios.get("/latest").then(response => {
-            console.log(response.data.data);
             this.setState({ results: response.data.data });
         });
     }
 
+    // if an empty search is submitted, just default to the latest block
     onSearchHandler = event => {
         event.preventDefault();
 
