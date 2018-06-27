@@ -4,7 +4,7 @@
     padding: 20px;
     color: white;
     text-transform: uppercase;
-    font-size: 1.5em;
+    font-size: 1.8em;
     letter-spacing: 2px;
 
     display: flex;
@@ -13,12 +13,4 @@
 
 .Header_logo {
     margin-right: 50px;
-}
-
-.Header-title {
-    font-size: 1.5em;
-}
-
-.Header-text {
-    font-size: 1.5em;
 }

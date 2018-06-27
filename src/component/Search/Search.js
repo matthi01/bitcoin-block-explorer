@@ -8,8 +8,8 @@ import "./Search.css";
 class Search extends Component {
     state = {
         searchValue: "",
-        searchClicked: false,
-        results: null
+        results: null,
+        resetTransactions: true
     };
 
     componentWillMount() {
@@ -21,7 +21,6 @@ class Search extends Component {
 
     onSearchHandler = event => {
         event.preventDefault();
-        this.setState({ searchClicked: true });
 
         axios.get(`/${this.state.searchValue}`).then(response => {
             this.setState({ results: response.data.data });
@@ -46,7 +45,10 @@ class Search extends Component {
                         />
                     </form>
                 </div>
-                <Results results={this.state.results} />
+                <Results
+                    results={this.state.results}
+                    resetTransactions={this.state.resetTransactions}
+                />
             </div>
         );
     }

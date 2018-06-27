@@ -8,7 +8,11 @@ class Results extends Component {
         tableRowActive: false
     };
 
-    onTableRowatoggle = () => {
+    componentWillReceiveProps(newProps) {
+        this.setState({ tableRowActive: !newProps.resetTransactions });
+    }
+
+    onTableRowToggle = () => {
         this.setState(prevState => {
             return { tableRowActive: !prevState.tableRowActive };
         });
@@ -21,7 +25,7 @@ class Results extends Component {
                 <Table.Row
                     active={this.state.tableRowActive}
                     key={this.props.results.height}
-                    onClick={this.onTableRowatoggle}
+                    onClick={this.onTableRowToggle}
                 >
                     <Table.Cell>{this.props.results.height}</Table.Cell>
                     <Table.Cell>{this.props.results.tx_count}</Table.Cell>
@@ -31,7 +35,7 @@ class Results extends Component {
         }
 
         let transactions = null;
-        if (this.state.tableRowActive) {
+        if (this.state.tableRowActive && this.props.results) {
             transactions = (
                 <Transactions blockHeight={this.props.results.height} />
             );
