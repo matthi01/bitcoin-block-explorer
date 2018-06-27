@@ -10,30 +10,32 @@ class Transactions extends Component {
     };
 
     fetchTransactions = blockHeight => {
-        axios.get(`/${blockHeight}/tx`).then(response => {
-            // response.data.data.list.forEach(el => console.log(el.is_coinbase));
-            let transactionData = response.data.data.list.map(txn => {
-                return (
-                    <Table.Row key={txn.hash}>
-                        <Table.Cell>{txn.hash}</Table.Cell>
-                        <Table.Cell>
-                            {txn.is_coinbase ? "Yes" : "No"}
-                        </Table.Cell>
-                        <Table.Cell>{txn.fee * 0.00000001}</Table.Cell>
-                        <Table.Cell>
-                            {moment
-                                .unix(txn.created_at)
-                                .format("DD/MM/YYYY hh:mm a")}
-                        </Table.Cell>
-                        <Table.Cell>
-                            {txn.outputs_value * 0.00000001}
-                        </Table.Cell>
-                    </Table.Row>
-                );
-            });
+        axios
+            .get(`/${blockHeight}/tx`)
+            .then(response => {
+                // response.data.data.list.forEach(el => console.log(el.is_coinbase));
+                let transactionData = response.data.data.list.map(txn => {
+                    return (
+                        <Table.Row key={txn.hash}>
+                            <Table.Cell>
+                                {txn.is_coinbase ? "Yes" : "No"}
+                            </Table.Cell>
+                            <Table.Cell>{txn.fee * 0.00000001}</Table.Cell>
+                            <Table.Cell>
+                                {moment
+                                    .unix(txn.created_at)
+                                    .format("DD/MM/YYYY hh:mm a")}
+                            </Table.Cell>
+                            <Table.Cell>
+                                {txn.outputs_value * 0.00000001}
+                            </Table.Cell>
+                        </Table.Row>
+                    );
+                });
 
-            this.setState({ transactionData: transactionData });
-        });
+                this.setState({ transactionData: transactionData });
+            })
+            .catch();
     };
 
     render() {
@@ -46,7 +48,6 @@ class Transactions extends Component {
                 <Table striped>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell>Hash</Table.HeaderCell>
                             <Table.HeaderCell>Coinbase Txn</Table.HeaderCell>
                             <Table.HeaderCell>Fee (BTC)</Table.HeaderCell>
                             <Table.HeaderCell>Created</Table.HeaderCell>

@@ -22,9 +22,18 @@ class Search extends Component {
     onSearchHandler = event => {
         event.preventDefault();
 
-        axios.get(`/${this.state.searchValue}`).then(response => {
-            this.setState({ results: response.data.data });
-        });
+        let searchValue;
+        if (!this.state.searchValue) {
+            searchValue = "latest";
+        } else {
+            searchValue = this.state.searchValue;
+        }
+        axios
+            .get(`/${searchValue}`)
+            .then(response => {
+                this.setState({ results: response.data.data });
+            })
+            .catch();
     };
 
     onSearchValueChangedHandler(event) {

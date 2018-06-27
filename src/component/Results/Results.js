@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Table } from "semantic-ui-react";
+import moment from "moment";
 import Transactions from "./Transactions/Transactions";
 import "./Results.css";
 
@@ -29,6 +30,12 @@ class Results extends Component {
                 >
                     <Table.Cell>{this.props.results.height}</Table.Cell>
                     <Table.Cell>{this.props.results.tx_count}</Table.Cell>
+                    <Table.Cell>{this.props.results.size / 1048576}</Table.Cell>
+                    <Table.Cell>
+                        {moment
+                            .unix(this.props.results.timestamp)
+                            .format("DD/MM/YYYY hh:mm a")}
+                    </Table.Cell>
                     <Table.Cell>{this.props.results.nonce}</Table.Cell>
                 </Table.Row>
             );
@@ -52,6 +59,10 @@ class Results extends Component {
                                 <Table.HeaderCell>
                                     Transactions
                                 </Table.HeaderCell>
+                                <Table.HeaderCell>
+                                    Block Size (MB)
+                                </Table.HeaderCell>
+                                <Table.HeaderCell>Timestamp</Table.HeaderCell>
                                 <Table.HeaderCell>Nonce</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
