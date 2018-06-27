@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Table } from "semantic-ui-react";
-import axios from "../axios-blocks/axios-blocks";
 import Transactions from "./Transactions/Transactions";
 import "./Results.css";
 
@@ -12,13 +11,6 @@ class Results extends Component {
     onTableRowClickHandler = () => {
         this.setState(prevState => {
             return { tableRowActive: !prevState.tableRowActive };
-        });
-    };
-
-    fetchTransactions = blockHeight => {
-        axios.get(`/${blockHeight}/tx`).then(response => {
-            console.log(response.data.data.list);
-            return response.data.data.list;
         });
     };
 
@@ -39,13 +31,10 @@ class Results extends Component {
         }
 
         let transactions = null;
-        let transactionsData = null;
         if (this.state.tableRowActive) {
-            transactionsData = this.fetchTransactions(
-                this.props.results.height
+            transactions = (
+                <Transactions blockHeight={this.props.results.height} />
             );
-
-            transactions = <Transactions transactionsData={transactions} />;
         }
 
         return (
